@@ -1,3 +1,7 @@
+#If you want to install all prerequisites for all 8 practicals at once, use:
+#pip install nltk spacy transformers torch sentencepiece accelerate
+#python-m spacy download en_core_web_sm
+
 # --------------------------practical 1------------
 # Write a program to implement sentence segmentation and word tokenization 
 import nltk
