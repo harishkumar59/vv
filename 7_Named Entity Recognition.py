@@ -9,4 +9,4 @@ text = "Apple Inc. was founded by Steve Jobs, Steve Wozniak, and Ronald Wayne in
 doc = nlp(text)
 for ent in doc.ents:
     print(ent.text, "->", ent.label_, "->", spacy.explain(ent.label_))
-displacy.render(doc,style="ent",jupyter=True)
+displacy.render(doc, style="ent", jupyter=True)

@@ -1,7 +1,3 @@
-#If you want to install all prerequisites for all 8 practicals at once, use:
-#pip install nltk spacy transformers torch sentencepiece accelerate
-#python-m spacy download en_core_web_sm
-
 # --------------------------practical 1------------
 # Write a program to implement sentence segmentation and word tokenization 
 import nltk
@@ -199,6 +195,47 @@ for token in doc:
 # Visualize dependency tree in browser
 print("\nOpening dependency tree visualization in browser...")
 displacy.serve(doc, style="dep")
+
+
+
+# ------------------jupyter----------------
+# ---------------------------jupyter----------------
+
+
+
+
+# Write a program to Implement dependency parsing of a given text
+# pip install spacy 
+# python -m spacy download en_core_web_sm
+
+!pip install spacy
+import spacy
+from spacy import displacy
+
+# Load English NLP model
+nlp = spacy.load("en_core_web_sm")
+
+# Input sentence
+text = "The quick brown fox jumps over the lazy dog"
+
+# Process the text
+doc = nlp(text)
+
+print("\n=== TOKEN LEVEL SYNTACTIC ANALYSIS ===\n")
+
+# Print dependency relations
+for token in doc:
+    print(f"{token.text:10} | POS: {token.pos_:6} | DEP: {token.dep_:15} | HEAD: {token.head.text}")
+
+print("\n=== ROOT WORD ===")
+for token in doc:
+    if token.dep_ == "ROOT":
+        print("Root word:", token.text)
+
+# Visualize dependency tree in browser
+print("\nOpening dependency tree visualization in browser...")
+displacy.serve(doc, style="dep", auto_select_port=True)
+
 # --------------------------practical 7------------
 # Write a program to Implement Named Entity Recognition (NER)
 # pip install spacy
@@ -227,3 +264,60 @@ summarizer = pipeline("text-generation", model="facebook/opt-125m")
 text = "Summarize this: Artificial Intelligence is transforming industries like healthcare, education, and finance by automating tasks and improving decision-making."
 # In v5, we often just ask the model to summarize directly
 print(summarizer(text, max_new_tokens=50)[0]['generated_text'])
+
+
+
+
+
+# ------------------jupyter----------------
+# ---------------------------jupyter----------------
+
+
+# Step 1: Install the required libraries
+
+# !pip install transformers==4.52.4 torch sentencepiece accelerate
+
+# ⏳ Wait until you see something like:
+
+# Successfully installed transformers ...
+
+# Then restart the kernel:
+
+# Kernel → Restart Kernel
+
+# Step 2: Run this correct code
+# Aim: Implement Text Summarization for the given sample text
+
+from transformers import pipeline
+
+# Load the summarization model
+summarizer = pipeline(
+    "summarization",
+    model="sshleifer/distilbart-cnn-12-6"
+)
+
+# Sample text
+text = """
+Artificial Intelligence (AI) is transforming the world by enabling computers
+to perform tasks that normally require human intelligence. AI is widely used
+in healthcare, education, finance, transportation, and many other industries.
+It helps doctors diagnose diseases, supports students with personalized learning,
+improves business decision-making, and automates repetitive tasks. As technology
+continues to evolve, AI is expected to become an even more important part of
+everyday life by increasing productivity and solving complex problems.
+"""
+
+# Generate summary
+summary = summarizer(
+    text,
+    max_length=50,
+    min_length=20,
+    do_sample=False
+)
+
+# Print results
+print("========== ORIGINAL TEXT ==========\n")
+print(text)
+
+print("\n========== SUMMARY ==========\n")
+print(summary[0]["summary_text"])
